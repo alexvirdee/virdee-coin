@@ -22,8 +22,9 @@ async function main() {
   console.log("My Key pair: ", myKeypair.publicKey.toBase58());
 
   const mint = new web3.PublicKey(
-    "VRDcnUZB48GAPQm13DtxbGLwwAZPJWm6FbpiAGkkJhk"
+    "VRDio12cvQEAHFc44KLPUDZWShMDxjQER4ojSt4ypsT"
   );
+
   const seed1 = Buffer.from(anchor.utils.bytes.utf8.encode("metadata"));
   const seed2 = Buffer.from(mpl.PROGRAM_ID.toBytes());
   const seed3 = Buffer.from(mint.toBytes());
@@ -39,7 +40,7 @@ async function main() {
   const dataV2 = {
     name: "VirdeeCoin",
     symbol: "VIRD",
-    uri: "https://github.com/alexvirdee/coin-metadata/blob/main/AxzVRbyT8HgM1QRZX9SVA2YYxvkRZEMFucbxrpZDqX5P.json",
+    uri: "https://github.com/alexvirdee/coin-metadata/blob/main/VRDio12cvQEAHFc44KLPUDZWShMDxjQER4ojSt4ypsT.json",
     sellerFeeBasisPoints: 0,
     creators: null,
     collection: null,
