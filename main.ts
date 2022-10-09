@@ -1,7 +1,6 @@
 import * as mpl from "@metaplex-foundation/mpl-token-metadata";
 import * as web3 from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
-import { PROGRAM_ID } from "@metaplex-foundation/mpl-token-metadata";
 
 export function loadWalletKey(keypairFile: string): web3.Keypair {
   const fs = require("fs");
@@ -23,27 +22,22 @@ async function main() {
   const mint = new web3.PublicKey(
     "VRDcnUZB48GAPQm13DtxbGLwwAZPJWm6FbpiAGkkJhk"
   );
-  const tokenMetaDataProgram = mpl.PROGRAM_ID;
   const seed1 = Buffer.from(anchor.utils.bytes.utf8.encode("metadata"));
   const seed2 = Buffer.from(mpl.PROGRAM_ID.toBytes());
   const seed3 = Buffer.from(mint.toBytes());
-  const [metadataPDA, _bump] = web3.PublicKey.findProgramAddressSync(
-    [seed1, seed2, seed3],
-    PROGRAM_ID
-  );
-
+  const [metadataPDA, _bump] = web3.PublicKey.findProgramAddressSync([seed1, seed2, seed3], mpl.PROGRAM_ID);
   const accounts = {
-    metadata: metadataPDA,
-    mint,
-    mintAuthority: myKeypair.publicKey,
-    payer: myKeypair.publicKey,
-    updateAuthority: myKeypair.publicKey,
-  };
+      metadata: metadataPDA,
+      mint,
+      mintAuthority: myKeypair.publicKey,
+      payer: myKeypair.publicKey,
+      updateAuthority: myKeypair.publicKey,
+  }
 
   const dataV2 = {
     name: "VirdeeCoin",
     symbol: "VIRD",
-    uri: "https://raw.githubusercontent.com/alexvirdee/virdee-coin/main/logo.png",
+    uri: "https://github.com/alexvirdee/coin-metadata/blob/main/AxzVRbyT8HgM1QRZX9SVA2YYxvkRZEMFucbxrpZDqX5P.json",
     sellerFeeBasisPoints: 0,
     creators: null,
     collection: null,
@@ -72,7 +66,7 @@ async function main() {
   }
   const tx = new web3.Transaction();
   tx.add(ix);
-  const connection = new web3.Connection("https://api.mainnet-beta.solana.com");
+  const connection = new web3.Connection("https://api.devnet.solana.com");
   const txid = await web3.sendAndConfirmTransaction(connection, tx, [
     myKeypair,
   ]);
