@@ -2,6 +2,7 @@ import * as mpl from "@metaplex-foundation/mpl-token-metadata";
 import * as web3 from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 
+
 export function loadWalletKey(keypairFile: string): web3.Keypair {
   const fs = require("fs");
   const loaded = web3.Keypair.fromSecretKey(
@@ -10,14 +11,15 @@ export function loadWalletKey(keypairFile: string): web3.Keypair {
   return loaded;
 }
 
+
 const INITIALIZE = false;
 
 async function main() {
   console.log("testing");
   const myKeypair = loadWalletKey(
-    "AxzVRbyT8HgM1QRZX9SVA2YYxvkRZEMFucbxrpZDqX5P.json"
+    "AxzXAmVr2EWfBr7rsakwUkFknNSFg431g7AXe23YGAes.json"
   );
-  console.log(myKeypair.publicKey.toBase58());
+  console.log("My Key pair: ", myKeypair.publicKey.toBase58());
 
   const mint = new web3.PublicKey(
     "VRDcnUZB48GAPQm13DtxbGLwwAZPJWm6FbpiAGkkJhk"
@@ -54,6 +56,9 @@ async function main() {
     };
     ix = mpl.createCreateMetadataAccountV2Instruction(accounts, args);
   } else {
+
+    console.log("Update authority here",  myKeypair.publicKey.toBase58());
+
     const args = {
       updateMetadataAccountArgsV2: {
         data: dataV2,
@@ -62,11 +67,12 @@ async function main() {
         primarySaleHappened: true,
       },
     };
+
     ix = mpl.createUpdateMetadataAccountV2Instruction(accounts, args);
   }
   const tx = new web3.Transaction();
   tx.add(ix);
-  const connection = new web3.Connection("https://api.devnet.solana.com");
+  const connection = new web3.Connection("https://api.mainnet-beta.solana.com");
   const txid = await web3.sendAndConfirmTransaction(connection, tx, [
     myKeypair,
   ]);
