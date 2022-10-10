@@ -40,7 +40,7 @@ async function main() {
   const dataV2 = {
     name: "VirdeeCoin",
     symbol: "VIRD",
-    uri: "https://github.com/alexvirdee/coin-metadata/blob/main/VRDio12cvQEAHFc44KLPUDZWShMDxjQER4ojSt4ypsT.json",
+    uri: "https://raw.githubusercontent.com/alexvirdee/coin-metadata/main/data/metadata.json",
     sellerFeeBasisPoints: 0,
     creators: null,
     collection: null,
